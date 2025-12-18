@@ -1,4 +1,9 @@
 #!/bin/bash
+
+apt install git -y
+
+git clone https://github.com/sirnathan00/usefullscripts.git
+cd usefullscripts
 cp Public_homelab_linux nan/root/.ssh/authorized_keys
 
 sed -i 's/#PubkeyAuthentication no/PubkeyAuthentication yes/'  /etc/ssh/sshd_config
@@ -12,22 +17,9 @@ rm /etc/apt/sources.list.d/pve-enterprise.sources
 cp proxmox.sources /etc/apt/sources.list.d/proxmox.sources
 
 
-msg_info() {
-  local msg="$1"
-  echo -ne " ${HOLD} ${YW}${msg}..."
-}
 
-msg_ok() {
-  local msg="$1"
-  echo -e "${BFR} ${CM} ${GN}${msg}${CL}"
-}
 
-msg_error() {
-  local msg="$1"
-  echo -e "${BFR} ${CROSS} ${RD}${msg}${CL}"
-}
-
-post_routines_common() {
+nag_scriptr() {
     # Create external script, this is needed because DPkg::Post-Invoke is fidly with quote interpretation
     mkdir -p /usr/local/bin
     cat >/usr/local/bin/pve-remove-nag.sh <<'EOF'
@@ -85,7 +77,10 @@ EOF
     chmod 644 /etc/apt/apt.conf.d/no-nag-script
 
 }
-post_routines_common
-apt update
-apt-get dist-upgrade
+
+nag_script
+apt update -y
+apt-get dist-upgrade -y
+cd ..
+rm -r usefullscripts
 reboot
