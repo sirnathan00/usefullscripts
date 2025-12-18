@@ -16,7 +16,7 @@ rm /etc/apt/sources.list.d/ceph.sources
 rm /etc/apt/sources.list.d/pve-enterprise.sources
 cp proxmox.sources /etc/apt/sources.list.d/proxmox.sources
 
-nag_scriptr() {
+nag_script() {
     # Create external script, this is needed because DPkg::Post-Invoke is fidly with quote interpretation
     mkdir -p /usr/local/bin
     cat >/usr/local/bin/pve-remove-nag.sh <<'EOF'
