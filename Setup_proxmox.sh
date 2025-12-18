@@ -4,7 +4,7 @@ apt install git -y
 
 git clone https://github.com/sirnathan00/usefullscripts.git
 cd usefullscripts
-cp Public_homelab_linux nan/root/.ssh/authorized_keys
+cp Public_homelab_linux /root/.ssh/authorized_keys
 
 sed -i 's/#PubkeyAuthentication no/PubkeyAuthentication yes/'  /etc/ssh/sshd_config
 sed -i 's|#AuthorizedKeysFile      .ssh/authorized_keys .ssh/authorized_keys2|AuthorizedKeysFile      .ssh/authorized_keys .ssh/authorized_keys2|' /etc/ssh/sshd_config
